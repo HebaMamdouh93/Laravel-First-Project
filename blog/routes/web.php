@@ -16,4 +16,10 @@ Route::get('/', function () {
 });
 
 //All posts
-Route::get('posts','PostsController@index')->name('posts.index');;
+Route::get('posts','PostsController@index')->name('posts.index');
+//Create New Post
+Route::get('posts/create','PostsController@create')->name('posts.create');
+Route::post('posts','PostsController@store');
+//Update Post
+Route::get('posts/{post}/edit','PostsController@edit')->name('posts.edit');
+Route::put('posts/{id}','PostsController@update');

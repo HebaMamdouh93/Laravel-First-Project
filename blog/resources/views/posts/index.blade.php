@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="text-center">
-<button id="new" class="btn btn-success text-center">Create Post</button>
+<a href="/posts/create"><button id="new" class="btn btn-success text-center">Create Post</button></a>
 </div>
 
     <br/>
@@ -30,7 +30,7 @@
             <td>{{$post->created_at}}</td>
             <td>
             <button type="button" class="btn btn-info">View</button>    
-            <button type="button" class="btn btn-primary">Edit</button>    
+            <a href="/posts/{{$post->id}}/edit"><button type="button" class="btn btn-primary">Edit</button></a>    
             <button type="button" class="btn btn-danger">Delete</button>
            
             </td>
