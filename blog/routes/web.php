@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 //All posts
+Route::get('posts','PostsController@index')->name('posts.index');;
