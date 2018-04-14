@@ -23,3 +23,7 @@ Route::post('posts','PostsController@store');
 //Update Post
 Route::get('posts/{post}/edit','PostsController@edit')->name('posts.edit');
 Route::put('posts/{id}','PostsController@update');
+//Delete Post
+Route::delete('posts/{id}','PostsController@destroy');
+//Show Post
+Route::get('posts/{post}','PostsController@show')->name('posts.show');

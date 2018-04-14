@@ -29,7 +29,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">All Posts <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="/posts">All Posts <span class="sr-only">(current)</span></a></li>
         
        
       </ul>

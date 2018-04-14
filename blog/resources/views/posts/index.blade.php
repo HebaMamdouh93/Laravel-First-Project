@@ -27,12 +27,19 @@
             <td>{{$post->title}}</td>
             <td>{{$post->description}}</td>
             <td>{{$post->user->name}}</td>
-            <td>{{$post->created_at}}</td>
+            <?php
+         $created_at=date('Y-m-d', strtotime($post->created_at));
+            ?>
+            <td><?= $created_at ?></td>
             <td>
-            <button type="button" class="btn btn-info">View</button>    
+            <a href="/posts/{{$post->id}}"><button type="button" class="btn btn-info">View</button></a>    
             <a href="/posts/{{$post->id}}/edit"><button type="button" class="btn btn-primary">Edit</button></a>    
-            <button type="button" class="btn btn-danger">Delete</button>
            
+            <form action="/posts/{{$post->id}}" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="submit" class="btn btn-danger" value="Delete"/>
+            </form>
             </td>
 
 

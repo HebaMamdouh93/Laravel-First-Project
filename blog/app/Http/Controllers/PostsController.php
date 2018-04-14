@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Post;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -11,6 +12,7 @@ class PostsController extends Controller
     public function index()
     {
        $posts= Post::all();
+                      
        return view('posts.index',[
         'posts' => $posts
        ]);
@@ -63,6 +65,29 @@ class PostsController extends Controller
     $post->fill($input)->save();
 
         return redirect(route('posts.index'));
+    }
+
+    //Delete Post
+
+    public function destroy(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
+        //$request->session()->flash('message', 'Successfully deleted the task!');
+        return redirect(route('posts.index'));
+    }
+
+    //Show Post Details
+
+    public function show(Post $post)
+    {
+        //$dt = Carbon::create($post->user->created_at);
+        $dt = new Carbon($post->user->created_at);
+        $created_at= $dt->format('l jS \\of F Y h:i:s A');
+        return view('posts.show', compact('post',$post),[
+            'created_at' => $created_at,
+            
+        ]);
     }
 
 
