@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 use App\Post;
 use App\User;
+use Auth;
 use Carbon\Carbon;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -12,7 +15,8 @@ class PostsController extends Controller
     public function index()
     {
        $posts= Post::all();
-                      
+       //$posts->paginate(3);
+       //$posts= App\Post::paginate(3);           
        return view('posts.index',[
         'posts' => $posts
        ]);
@@ -30,14 +34,10 @@ class PostsController extends Controller
     }
 
     //Store Post in database
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        
-        Post::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => $request->user_id
-        ]);
+        $input = $request->except(['slug']);
+        Post::create($input);
         
        return redirect(route('posts.index')); 
     }
@@ -53,7 +53,7 @@ class PostsController extends Controller
     }
 
 
-    public function update(Request $request,  $id)
+    public function update(UpdatePostRequest $request,  $id)
     {
        
         $post = Post::findOrFail($id);
@@ -61,7 +61,7 @@ class PostsController extends Controller
   
 
     $input = $request->all();
-
+    $post->slug = null;
     $post->fill($input)->save();
 
         return redirect(route('posts.index'));

@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 //All posts
-Route::get('posts','PostsController@index')->name('posts.index');
+Route::get('posts','PostsController@index')->name('posts.index')->middleware('auth');
 //Create New Post
 Route::get('posts/create','PostsController@create')->name('posts.create');
 Route::post('posts','PostsController@store');
@@ -27,3 +27,9 @@ Route::put('posts/{id}','PostsController@update');
 Route::delete('posts/{id}','PostsController@destroy');
 //Show Post
 Route::get('posts/{post}','PostsController@show')->name('posts.show');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+

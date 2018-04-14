@@ -3,6 +3,15 @@
 
 @section('content')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form method="post" action="/posts/{{$post->id}}">
 <input type="hidden" name="_method" value="PUT">
      {{ csrf_field() }}
@@ -28,7 +37,7 @@
                                  
                                 <select class="form-control" name="user_id">
                                     @foreach ($users as $user)
-                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                        <option value="{{$user->id}}" {{ ($user->id == $post->user->id) ? "selected='selected'": ''}}>{{$user->name}}</option>
                                     @endforeach
 
                                     </select>
