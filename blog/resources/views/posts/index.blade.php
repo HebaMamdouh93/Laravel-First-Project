@@ -3,6 +3,7 @@
 @section('content')
 <div class="text-center">
 <a href="/posts/create"><button id="new" class="btn btn-success text-center">Create Post</button></a>
+<a href="/posts/restore"><button id="new" class="btn btn-warning text-center">Restore</button></a>
 </div>
 
     <br/>
@@ -16,15 +17,16 @@
             <th>Posted By</th>
             <th>CreatedAt</th>
             <th>Slug</th>
+            <th>Image</th>
             <th>Action</th>
           </tr>
          
         </thead>
         <tbody>
-      
+        <?php $i=1; ?>
         @foreach ($posts as $post) 
         <tr>
-            <td>{{$post->id}}</td>
+            <td><?= $i++?></td>
             <td>{{$post->title}}</td>
             <td>{{$post->description}}</td>
             <td>{{$post->user->name}}</td>
@@ -33,6 +35,8 @@
             ?>
             <td><?= $created_at ?></td>
             <td>{{$post->slug}}</td>
+            <td><img src="{{$post->image}}"/></td>
+            
             <td>
             <a href="/posts/{{$post->id}}"><button type="button" class="btn btn-info">View</button></a>    
             <a href="/posts/{{$post->id}}/edit"><button type="button" class="btn btn-primary">Edit</button></a>    

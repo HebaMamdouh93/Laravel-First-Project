@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\Userhas3postsonly;
 
 class StorePostRequest extends FormRequest
 {
@@ -25,7 +26,8 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:posts|min:3',
-            'description' => 'required|min:10'
+            'description' => 'required|min:10',
+            'user_id' =>  new Userhas3postsonly
         ];
     }
 }

@@ -4,16 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use Sluggable;
+    use SoftDeletes;
+    use \Spatie\Tags\HasTags;
     protected $fillable = [
         'title',
         'description',
         'user_id',
-        'slug'
+        'slug',
+        'image'
     ];
-
+    
+    protected $dates = ['deleted_at'];
     public function user()
     {
         //User::class == 'App\User'
@@ -29,6 +34,10 @@ class Post extends Model
     }
 
     public function getCreatedDateAttribute(){
+        // return $this->created_at->formate();
+    }
+    public function getNumofpostsAttribute($id){
+        //$this->find
         // return $this->created_at->formate();
     }
 }

@@ -8,7 +8,8 @@ use Carbon\Carbon;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
-
+use File;
+use DB;
 class PostsController extends Controller
 {
     //Display All posts
@@ -16,7 +17,8 @@ class PostsController extends Controller
     {
        $posts= Post::all();
        //$posts->paginate(3);
-       //$posts= App\Post::paginate(3);           
+       //$posts= App\Post::paginate(3);
+                
        return view('posts.index',[
         'posts' => $posts
        ]);
@@ -36,10 +38,31 @@ class PostsController extends Controller
     //Store Post in database
     public function store(StorePostRequest $request)
     {
+   
         $input = $request->except(['slug']);
-        Post::create($input);
-        
-       return redirect(route('posts.index')); 
+        /*if( $request->hasFile('image')) {
+           
+            
+
+            //$imagepath = $request->image->move($path, $filename);
+            //$post->image = $imagepath;
+            $image = $request->file('image');
+            $path = public_path(). '/images/';
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            //dd($filename);
+            $image->move($path, $filename);
+        //dd($imagepath);
+            //$post->image = $imagepath;
+            //$post->update(['image' => $imagepath]);
+        }
+        */
+        $tags_str=$request->tags;
+        $tags=explode(',',$tags_str);
+        $post=Post::create($input);
+
+        //adding multiple tags
+        $post->attachTags($tags);
+        return redirect(route('posts.index')); 
     }
    //Edit Post in database
     public function edit(Post $post)
@@ -55,14 +78,32 @@ class PostsController extends Controller
 
     public function update(UpdatePostRequest $request,  $id)
     {
-       
         $post = Post::findOrFail($id);
-
-  
-
-    $input = $request->all();
-    $post->slug = null;
-    $post->fill($input)->save();
+   
+        $post->slug = null;
+/*
+        if ($request->hasFile('image')) {
+            $request->file('image')->store('public/images');
+            
+            // ensure every image has a different name
+            $file_name = $request->file('image')->hashName();
+            
+            // save new image $file_name to database
+            $post->update(['image' => $file_name]);
+        }
+*/
+        if( $request->hasFile('image')) {
+            $image = $request->file('image');
+            $path = public_path(). '/images/';
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            dd($filename);
+            $image->move($path, $filename);
+        
+            $post->image = $imagepath;
+            $post->update(['image' => $imagepath]);
+        }
+        
+        $post->fill($request->only(['title','description','user_id']))->save();
 
         return redirect(route('posts.index'));
     }
@@ -73,7 +114,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $post->delete();
-        //$request->session()->flash('message', 'Successfully deleted the task!');
+        
         return redirect(route('posts.index'));
     }
 
@@ -88,6 +129,14 @@ class PostsController extends Controller
             'created_at' => $created_at,
             
         ]);
+    }
+
+    //restore deleted post
+    public function restore()
+    {
+      
+       $posts =Post::onlyTrashed()->restore();
+        return redirect(route('posts.index'));
     }
 
 

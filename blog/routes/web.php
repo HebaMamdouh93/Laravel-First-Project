@@ -18,18 +18,24 @@ Route::get('/', function () {
 //All posts
 Route::get('posts','PostsController@index')->name('posts.index')->middleware('auth');
 //Create New Post
-Route::get('posts/create','PostsController@create')->name('posts.create');
-Route::post('posts','PostsController@store');
+Route::get('posts/create','PostsController@create')->name('posts.create')->middleware('auth');
+Route::post('posts','PostsController@store')->middleware('auth');
 //Update Post
-Route::get('posts/{post}/edit','PostsController@edit')->name('posts.edit');
-Route::put('posts/{id}','PostsController@update');
+Route::get('posts/{post}/edit','PostsController@edit')->name('posts.edit')->middleware('auth');
+Route::put('posts/{id}','PostsController@update')->middleware('auth');
+//restore deleted post
+Route::get('posts/restore','PostsController@restore')->name('posts.restore')->middleware('auth');
 //Delete Post
-Route::delete('posts/{id}','PostsController@destroy');
+Route::delete('posts/{id}','PostsController@destroy')->middleware('auth');
 //Show Post
-Route::get('posts/{post}','PostsController@show')->name('posts.show');
+Route::get('posts/{post}','PostsController@show')->name('posts.show')->middleware('auth');
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
 
 
 

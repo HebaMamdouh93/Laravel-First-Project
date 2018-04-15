@@ -12,7 +12,7 @@
         </ul>
     </div>
 @endif
-<form method="post" action="/posts">
+<form method="post" action="/posts" enctype="multipart/form-data">
 {{csrf_field()}}
 
                     <div class="form-group ">
@@ -26,6 +26,15 @@
                             
                              
                             <textarea name="description" class="form-control" cols=0 rows=10></textarea> 
+                               
+                            
+                    </div>
+
+                    <div class="form-group">
+                            <label>Post Tags:</label>
+                            
+                             
+                            <input type="text" name="tags" class="form-control" placeholder="Please Enter tags separated by comma"/>
                                
                             
                     </div>
@@ -49,6 +58,31 @@
 
 
 <br>
+<div class="form-group">
+<label>Upload Image</label>
+
+<div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse… <input type="file" class="form-group" name="image" multiple>
+                </span>
+            </span>
+           
+        </div>
+</div>
+<!--
+<div class="form-group">
+        <label>Upload Image</label>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse… <input type="file" id="imgInp" name="postimg">
+                </span>
+            </span>
+           
+        </div>
+        -->
+        
 <input type="submit" value="Create" class="btn btn-success">
 
 </form>
