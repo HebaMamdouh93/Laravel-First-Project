@@ -140,6 +140,20 @@ class PostsController extends Controller
     }
 
 
+    //view post info trough Ajax request
+    public function viewAjax(Request $request)
+    {
+        // do something here
+        $data = $request->postId; // This will get all the request data.
+        $post = Post::findOrFail($data);
+        $username=$post->user->name;
+        $email=$post->user->email;
+        return response()->json(['response' => "succes",'post' =>$post 
+        ,'username'=>$username ,'email' =>$email ]);
+        
+    } 
+
+
 
 
 

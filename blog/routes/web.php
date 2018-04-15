@@ -36,6 +36,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+//route ajax request
+Route::post('posts/ajax','PostsController@viewAjax')->name('posts.ajax')->middleware('auth');
+
 
 
 
