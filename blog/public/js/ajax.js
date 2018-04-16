@@ -1,15 +1,14 @@
 
 $(function () {
-
+  
+    $("#delete").click(function(){
+       // console.log("ds");
+        alert("Post will be deleted ,Are you sure?");
+    });
     $('.viewajax').click(function () {
 		 
 		var postID = $(this).attr("post-id");
 		console.log(postID);
-		/*$.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-          });*/
         $.ajax({
             url: '/posts/ajax',
             type: 'post',

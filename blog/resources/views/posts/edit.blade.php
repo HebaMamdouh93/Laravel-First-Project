@@ -12,7 +12,7 @@
         </ul>
     </div>
 @endif
-<form method="post" action="/posts/{{$post->id}}">
+<form method="post" action="/posts/{{$post->id}}" enctype="multipart/form-data">
 <input type="hidden" name="_method" value="PUT">
      {{ csrf_field() }}
 
@@ -47,7 +47,19 @@
                    
                
 
+<br>
+<div class="form-group">
+<label>Upload Image</label>
 
+<div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse… <input type="file" class="form-group" name="image" multiple>
+                </span>
+            </span>
+           
+        </div>
+</div>
 
 <br>
 <input type="submit" value="Update" class="btn btn-primary">

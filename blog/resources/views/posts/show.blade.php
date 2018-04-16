@@ -42,7 +42,7 @@
 						<div class="panel-body">
                             <p><strong>Name:-</strong>{{$post->user->name}}</p>
                             <p><strong>Email:-</strong>{{$post->user->email}}</p>
-                            <p><strong>Created At:-</strong>{{$created_at}}</p>
+                            <p><strong>Created At:-</strong>{{$post->user_created_date}}</p>
                             
 
 						</div>

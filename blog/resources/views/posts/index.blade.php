@@ -7,6 +7,7 @@
 </div>
 
     <br/>
+  
     <table class="table table-striped table-hover">
         <thead class="thead-dark ">
         
@@ -30,12 +31,13 @@
             <td>{{$post->title}}</td>
             <td>{{$post->description}}</td>
             <td>{{$post->user->name}}</td>
-            <?php
-         $created_at=date('Y-m-d', strtotime($post->created_at));
-            ?>
-            <td><?= $created_at ?></td>
+           
+            
+            <td>{{$post->created_date}}</td>
+            <?php $path="/storage/$post->image"?>
             <td>{{$post->slug}}</td>
-            <td><img src="{{$post->image}}"/></td>
+            
+            <td><img src="{{ asset($path) }}" width="100" heigth="100"/></td>
             
             <td>
             <a href="/posts/{{$post->id}}"><button type="button" class="btn btn-info">View</button></a>    
@@ -44,7 +46,7 @@
             <form action="/posts/{{$post->id}}" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-danger" >Delete</button>
+                <button id ="delete" type="submit" class="btn btn-danger" >Delete</button>
             </form>
              <!-- Trigger the modal with a button -->
   <button type="button" post-id="{{$post->id}}" class="btn btn-default viewajax" data-toggle="modal" data-target="#myModal">View Ajax</button>
@@ -57,7 +59,7 @@
     </tbody> 
     </table>
     <!-- Bootstrap Model -->
-   
+    {{ $posts->links() }}
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
@@ -130,26 +132,6 @@
     
   </div>
 </div>
-    <!-- Paganation-->
-    <nav aria-label="Page navigation">
-  <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
 
 
 @endsection

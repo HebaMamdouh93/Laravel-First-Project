@@ -8,16 +8,20 @@ use Carbon\Carbon;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use File;
 use DB;
+use Storage;
 class PostsController extends Controller
 {
     //Display All posts
     public function index()
     {
-       $posts= Post::all();
+        $posts = Post::paginate(3);
+
+    $posts->withPath('posts');
+      // $posts= Post::all();
        //$posts->paginate(3);
-       //$posts= App\Post::paginate(3);
                 
        return view('posts.index',[
         'posts' => $posts
@@ -38,32 +42,26 @@ class PostsController extends Controller
     //Store Post in database
     public function store(StorePostRequest $request)
     {
-   
-        $input = $request->except(['slug']);
-        /*if( $request->hasFile('image')) {
-           
-            
-
-            //$imagepath = $request->image->move($path, $filename);
-            //$post->image = $imagepath;
+     
+        
+        if( $request->hasFile('image')) {
             $image = $request->file('image');
-            $path = public_path(). '/images/';
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            //dd($filename);
-            $image->move($path, $filename);
-        //dd($imagepath);
-            //$post->image = $imagepath;
-            //$post->update(['image' => $imagepath]);
+            $request->image->storeAs('public',$filename);
+            
         }
-        */
+        
+        $input = $request->except(['slug']);
         $tags_str=$request->tags;
         $tags=explode(',',$tags_str);
         $post=Post::create($input);
+        $post->update(['image' => $filename]);
 
         //adding multiple tags
         $post->attachTags($tags);
         return redirect(route('posts.index')); 
     }
+
    //Edit Post in database
     public function edit(Post $post)
     {
@@ -79,32 +77,18 @@ class PostsController extends Controller
     public function update(UpdatePostRequest $request,  $id)
     {
         $post = Post::findOrFail($id);
-   
+        
         $post->slug = null;
-/*
-        if ($request->hasFile('image')) {
-            $request->file('image')->store('public/images');
-            
-            // ensure every image has a different name
-            $file_name = $request->file('image')->hashName();
-            
-            // save new image $file_name to database
-            $post->update(['image' => $file_name]);
-        }
-*/
-        if( $request->hasFile('image')) {
+         if( $request->hasFile('image')) {
+            unlink(public_path() . '/storage/'.$post->image);
             $image = $request->file('image');
-            $path = public_path(). '/images/';
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            dd($filename);
-            $image->move($path, $filename);
-        
-            $post->image = $imagepath;
-            $post->update(['image' => $imagepath]);
+            $request->image->storeAs('public',$filename);
+            
         }
-        
-        $post->fill($request->only(['title','description','user_id']))->save();
 
+        $post->fill($request->only(['title','description','user_id','image']))->save();
+        $post->update(['image' => $filename]);
         return redirect(route('posts.index'));
     }
 
@@ -113,6 +97,9 @@ class PostsController extends Controller
     public function destroy(Request $request, $id)
     {
         $post = Post::findOrFail($id);
+      
+        unlink(public_path() . '/storage/'.$post->image);
+      
         $post->delete();
         
         return redirect(route('posts.index'));
@@ -122,13 +109,7 @@ class PostsController extends Controller
 
     public function show(Post $post)
     {
-        //$dt = Carbon::create($post->user->created_at);
-        $dt = new Carbon($post->user->created_at);
-        $created_at= $dt->format('l jS \\of F Y h:i:s A');
-        return view('posts.show', compact('post',$post),[
-            'created_at' => $created_at,
-            
-        ]);
+        return view('posts.show', compact('post',$post));
     }
 
     //restore deleted post

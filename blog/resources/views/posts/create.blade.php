@@ -70,18 +70,7 @@
            
         </div>
 </div>
-<!--
-<div class="form-group">
-        <label>Upload Image</label>
-        <div class="input-group">
-            <span class="input-group-btn">
-                <span class="btn btn-default btn-file">
-                    Browse… <input type="file" id="imgInp" name="postimg">
-                </span>
-            </span>
-           
-        </div>
-        -->
+
         
 <input type="submit" value="Create" class="btn btn-success">
 
