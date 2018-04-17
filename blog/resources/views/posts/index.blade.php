@@ -17,6 +17,7 @@
             <th>Description</th>
             <th>Posted By</th>
             <th>CreatedAt</th>
+            <th>Tags</th>
             <th>Slug</th>
             <th>Image</th>
             <th>Action</th>
@@ -35,8 +36,12 @@
             
             <td>{{$post->created_date}}</td>
             <?php $path="/storage/$post->image"?>
+            <?php $tags_str=""?>
+            @foreach ($post->tags as $tag) 
+            <?php $tags_str.="#".$tag->name.","?>
+            @endforeach
+            <td>{{$tags_str}}</td>
             <td>{{$post->slug}}</td>
-            
             <td><img src="{{ asset($path) }}" width="100" heigth="100"/></td>
             
             <td>

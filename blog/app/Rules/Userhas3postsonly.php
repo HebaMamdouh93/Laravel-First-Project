@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use DB;
+use App\Post;
 class Userhas3postsonly implements Rule
 {
     /**
@@ -26,10 +26,9 @@ class Userhas3postsonly implements Rule
     public function passes($attribute, $value)
     {
         //dd($value);
-        $posts = DB::table('posts')
-                ->where('user_id', '=', $value)
+        $posts = Post::where('user_id', '=', $value)
                 ->get();
-               // dd(count($posts));
+            
         if(count($posts)<3) return true;        
         
     }

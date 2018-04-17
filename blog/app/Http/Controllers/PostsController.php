@@ -51,7 +51,7 @@ class PostsController extends Controller
             
         }
         
-        $input = $request->except(['slug']);
+       $input = $request->except(['slug']);
         $tags_str=$request->tags;
         $tags=explode(',',$tags_str);
         $post=Post::create($input);
