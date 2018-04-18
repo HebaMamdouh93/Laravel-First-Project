@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Post;
 use App\User;
+use Auth;
+use App\SocialAuthAccount;
 use Illuminate\Http\Request;
+use Socialite;
 class LoginController extends Controller
 {
     /*
@@ -39,6 +42,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    
+   
 
     
 }

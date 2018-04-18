@@ -2,7 +2,6 @@
 $(function () {
   
     $("#delete").click(function(){
-       // console.log("ds");
         alert("Post will be deleted ,Are you sure?");
     });
     $('.viewajax').click(function () {
@@ -28,5 +27,12 @@ $(function () {
         });
 
     });
+
+    //github account
+    $("#github-button").click(function(){
+       
+        $('.alert').show();
+        
+     });
  
 });

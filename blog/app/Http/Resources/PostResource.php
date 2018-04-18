@@ -20,6 +20,6 @@ class PostResource extends Resource
             'user_id' => $this ->user_id,
             'image' => $this ->image,
             'user' => new UserResource($this->user)
-    ];
+        ];
     }
 }

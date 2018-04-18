@@ -45,6 +45,10 @@ return [
             'driver' => 'passport',
             'provider' => 'users',
         ],
+        'social' => [
+            'driver' => 'session',
+            'provider' => 'social_accounts',
+        ],
     ],
 
     /*
@@ -68,6 +72,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'social_accounts' => [
+            'driver' => 'eloquent',
+            'model' => App\SocialAuthAccount::class,
         ],
 
         // 'users' => [

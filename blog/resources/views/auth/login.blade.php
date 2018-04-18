@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            Success! You are Connected to Github Account successfully.
+        </div>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -58,9 +62,24 @@
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
                                 </a>
+                               
                             </div>
                         </div>
                     </form>
+                    <?php if (!Auth::guard('social')->check()) {
+                        // The user is logged in...
+                    ?>
+                    <a id="github-button" class="btn btn-block btn-social btn-github " href="/login/github">
+                <i class="fa fa-github " id="github">Sign in with GitHub</i> 
+                    </a>
+                    <?php }else{ ?>
+                        <a  class="btn btn-block btn-social btn-github " href="/github/logout">
+                <i class="fa fa-github " id="github">Logout from GitHub</i> 
+                    </a>
+                    
+                    <?php } ?>
+
+                    
                 </div>
             </div>
         </div>

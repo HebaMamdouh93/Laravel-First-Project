@@ -16,6 +16,18 @@
 
                     You are logged in!
                 </div>
+                <?php if (!Auth::guard('social')->check()) {
+                        // The user is logged in...
+                    ?>
+                    <a  class="btn btn-block btn-social btn-github " href="/login/github">
+                <i class="fa fa-github " id="github">Sign in with GitHub</i> 
+                    </a>
+                    <?php }else{ ?>
+                        <a  class="btn btn-block btn-social btn-github " href="/social">
+                <i class="fa fa-github " id="github">Show GitHub Account Info</i> 
+                    </a>
+                    
+                    <?php } ?>
             </div>
         </div>
     </div>

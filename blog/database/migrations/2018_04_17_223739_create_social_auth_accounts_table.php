@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentTable extends Migration
+class CreateSocialAuthAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateCommentTable extends Migration
      */
     public function up()
     {
-        Schema::create('comment', function (Blueprint $table) {
+        Schema::create('social_auth_accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('body');
-            //$table->foreign('user_id')->references('id')->on('users');
-            //$table->foreign('commentable_id')->references('id')->on('posts');
-            $table->string('comment_type');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
-
         });
-      
     }
 
     /**
@@ -32,6 +30,6 @@ class CreateCommentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comment');
+        Schema::dropIfExists('social_auth_accounts');
     }
 }

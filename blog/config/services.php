@@ -34,5 +34,12 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID','d40d2ba2081a134b7da0'),         // Your GitHub Client ID
+        'client_secret' => env('GITHUB_CLIENT_SECRET','28e85eddf5eb895cc5134a89e1762ca7ec9a8cec'), // Your GitHub Client Secret
+        'redirect' => 'http://intake38laravel.local/login/github/callback',
+    ],
+    
+    
 
 ];

@@ -14,15 +14,14 @@ use DB;
 use Storage;
 class PostsController extends Controller
 {
+    
     //Display All posts
     public function index()
     {
         $posts = Post::paginate(3);
 
     $posts->withPath('posts');
-      // $posts= Post::all();
-       //$posts->paginate(3);
-                
+      
        return view('posts.index',[
         'posts' => $posts
        ]);

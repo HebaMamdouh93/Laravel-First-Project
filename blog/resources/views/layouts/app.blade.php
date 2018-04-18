@@ -11,7 +11,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+ <!-- Scripts -->
+ <script src="{{ asset('js/jquery-3.1.0.min.js') }}"></script>
+ <script src="{{ asset('js/app.js') }}"></script>
+ <script src="{{ asset('js/ajax.js') }}"></script>
 </head>
 <body>
     <div id="app">
@@ -41,6 +47,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ route('posts.index') }}">All Posts</a></li>
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Login</a></li>
