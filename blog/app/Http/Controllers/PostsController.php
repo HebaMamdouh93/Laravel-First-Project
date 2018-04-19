@@ -18,6 +18,7 @@ class PostsController extends Controller
     //Display All posts
     public function index()
     {
+        
         $posts = Post::paginate(3);
 
     $posts->withPath('posts');

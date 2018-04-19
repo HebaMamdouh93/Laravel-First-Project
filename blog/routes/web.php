@@ -14,20 +14,21 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['middleware' => ['auth', 'auth:social']], function() {
+//
+Route::group(['middleware' => ['auth:web,social']], function() {
     // uses 'auth' middleware plus all middleware from $middlewareGroups['web']
     Route::get('posts','PostsController@index')->name('posts.index');
-    Route::get('posts/create','PostsController@create')->name('posts.create')->middleware('auth')->middleware('auth:social');
-    Route::post('posts','PostsController@store')->middleware('auth')->middleware('auth:social');
+    Route::get('posts/create','PostsController@create')->name('posts.create');
+    Route::post('posts','PostsController@store');
     //Update Post
-    Route::get('posts/{post}/edit','PostsController@edit')->name('posts.edit')->middleware('auth')->middleware('auth:social');
-    Route::put('posts/{id}','PostsController@update')->middleware('auth')->middleware('auth:social');
+    Route::get('posts/{post}/edit','PostsController@edit')->name('posts.edit');
+    Route::put('posts/{id}','PostsController@update');
     //restore deleted post
-    Route::get('posts/restore','PostsController@restore')->name('posts.restore')->middleware('auth');
+    Route::get('posts/restore','PostsController@restore')->name('posts.restore');
     //Delete Post
-    Route::delete('posts/{id}','PostsController@destroy')->middleware('auth');
+    Route::delete('posts/{id}','PostsController@destroy');
     //Show Post
-    Route::get('posts/{post}','PostsController@show')->name('posts.show')->middleware('auth');  
+    Route::get('posts/{post}','PostsController@show')->name('posts.show');  
 });
 //All posts
 //Route::get('posts','PostsController@index')->name('posts.index')->middleware(['auth:social', 'auth']);

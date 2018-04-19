@@ -41,7 +41,7 @@ class SocialController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('github')->user();
-       
+      // dd(Auth::guard('social'));
         $authUser = $this->findOrCreateUser($user);
         Auth::guard('social')->login($authUser, true);
         
